@@ -11,8 +11,8 @@ type ApiConf struct {
 	Url string
 }
 
-func CheveretoConf() ApiConf {
-	cfg, err := ini.Load("conf.ini")
+func CheveretoConf(file string) ApiConf {
+	cfg, err := ini.Load(file)
 	if err != nil {
 		fmt.Printf("Fail to read file: %v", err)
 		os.Exit(1)

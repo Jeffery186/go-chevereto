@@ -3,13 +3,16 @@ package main
 import (
 	"bytes"
 	"flag"
+	"fmt"
 	"github.com/go-resty/resty/v2"
 	"github.com/tidwall/gjson"
 	"go-chevereto/conf"
 	"golang.design/x/clipboard"
 	"io/ioutil"
 	"log"
+	"os"
 	"path"
+	"path/filepath"
 )
 
 func main() {
@@ -20,7 +23,11 @@ func main() {
 		log.Println(err0)
 	}
 	var api conf.ApiConf
-	api = conf.CheveretoConf()
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		log.Println(err)
+	}
+	api = conf.CheveretoConf(path.Join(dir, "conf.ini"))
 	client := resty.New()
 	profileImgBytes, _ := ioutil.ReadFile(*sFlag)
 	_, file := path.Split(*sFlag)
@@ -38,7 +45,7 @@ func main() {
 	url := gjson.Get(resp.String(), "image.url").String()
 	//name := gjson.Get(resp.String(), "image.name").String()
 	//extension := gjson.Get(resp.String(), "image.extension").String()
-	println(url)
+	fmt.Println(url)
 	//println(fmt.Sprintf("%s.%s", name, extension))
 	clipboard.Write(clipboard.FmtText, []byte(url))
 }
