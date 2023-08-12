@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/go-resty/resty/v2 v2.7.0
-	github.com/tidwall/gjson v1.14.0
+	github.com/tidwall/gjson v1.16.0
 	golang.design/x/clipboard v0.6.0
 	gopkg.in/ini.v1 v1.66.4
 )
